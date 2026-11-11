@@ -1,6 +1,0 @@
-﻿<Solution>
-  <Project Path="UniRx.csproj" />
-  <Project Path="UniRx.Examples.csproj" />
-  <Project Path="Assembly-CSharp-Editor.csproj" />
-  <Project Path="Assembly-CSharp.csproj" />
-</Solution>
