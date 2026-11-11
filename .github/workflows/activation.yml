@@ -1,0 +1,15 @@
+name: Acquire Unity Activation File
+on: workflow_dispatch # 手动在网页点击触发
+jobs:
+  activation:
+    name: Request Manual Activation File (.alf)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Request manual activation file
+        uses: game-ci/unity-request-activation-file@v2
+        id: get-alf
+      - name: Expose as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: manual-activation-file
+          path: ${{ steps.get-alf.outputs.filePath }}
