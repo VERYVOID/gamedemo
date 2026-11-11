@@ -1,0 +1,71 @@
+name: Build and Deploy Unity WebGL
+
+on:
+  push:
+    branches:
+      - main  # 当向 main 分支推送代码时自动触发打包
+
+# 赋予工作流写入 GitHub Pages 的权限
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build WebGL
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 检出仓库代码，开启 Git LFS（如果有大资产）
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      # 2. 缓存 Unity Library 文件夹，第二次及以后的编译速度能提升 5-10 倍
+      - name: Cache Library
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-WebGL-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-WebGL-
+
+      # 3. 使用 GameCI 官方容器进行 WebGL 构建
+      - name: Build WebGL Player
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+        with:
+          targetPlatform: WebGL
+          buildsPath: build
+          unityVersion: auto # 会自动读取你工程 ProjectSettings/ProjectVersion.txt 里的版本
+
+      # 4. 生成 .nojekyll 防止 GitHub Pages 路由丢失
+      - name: Prevent Jekyll Parsing
+        run: touch build/WebGL/WebGL/.nojekyll
+
+      # 5. 上传构建好的 WebGL 静态网页工件
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/WebGL/WebGL
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      # 6. 直接发布到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
