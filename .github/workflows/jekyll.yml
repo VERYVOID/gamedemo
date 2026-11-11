@@ -39,13 +39,11 @@ jobs:
       - name: Build WebGL Player
         uses: game-ci/unity-builder@v4
         env:
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           targetPlatform: WebGL
           buildsPath: build
-          unityVersion: auto # 会自动读取你工程 ProjectSettings/ProjectVersion.txt 里的版本
+          unityVersion: auto
 
       # 4. 生成 .nojekyll 防止 GitHub Pages 路由丢失
       - name: Prevent Jekyll Parsing
