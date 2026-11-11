@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 修改后在菜单点击 RELOAD XML；下一局生效。概率为累计阈值。
+     结构常量（数组索引、三选一规则、数学单位）不是调参项。 -->
+<SurvivorBalance version="1">
+  <Player moveSpeed="5" maxHp="100" invulnerability="0.65" radius="0.4" size="0.8" />
+  <Pools enemies="320" projectiles="256" effects="64" pickups="512" />
+  <Spawn interval="0.6" minInterval="0.12" levelRate="0.12" margin="2" />
+  <Enemy hpRate="0.15" speedRate="0.04" maxSpeedMultiplier="2" />
+  <Enemy0 unlockLevel="1" hp="20" damage="8" speed="1.6" reward="10" size="0.7" />
+  <Enemy1 unlockLevel="3" hp="40" damage="15" speed="2.6" reward="20" size="0.7" />
+  <Enemy2 unlockLevel="5" hp="100" damage="25" speed="1.1" reward="50" size="1.1" />
+  <Weapon interval="0.65" projectileSpeed="12" projectileLife="2" burstCount="8" orbitCount="3" orbitSpeed="3" orbitRadius="2" orbitHitInterval="0.25" />
+  <Weapon0 unlockScore="0" damage="22" size="0.24" />
+  <Weapon1 unlockScore="100" damage="22" size="0.24" />
+  <Weapon2 unlockScore="300" damage="16" size="0.4" />
+  <Experience baseRequired="20" levelStep="10" pickupRadius="1.4" gemSize="0.28" gemAngle="45" attractionSpeed="12" collectRadius="0.5" />
+  <Rarity commonThreshold="0.55" rareThreshold="0.85" epicThreshold="0.97" commonMultiplier="1" rareMultiplier="2" epicMultiplier="3" legendaryMultiplier="4" />
+  <Upgrade damagePercent="10" attackPercent="10" movePercent="10" hp="15" pickupPercent="20" />
+  <Feedback enemyFlash="0.12" playerFlash="0.15" shakeDuration="0.2" shakeAmplitude="0.15" hitStop="0.045" overlayAlpha="0.22" particleSize="0.12" particleSpeed="5" particleLife="0.35" enemyParticles="3" playerParticles="12" />
+  <Runtime hudIntervalMs="200" clickThrottleMs="250" requestTimeoutSeconds="10" />
+  <Terrain cellSize="4" coverageHalfSize="30" cameraZ="-10" />
+</SurvivorBalance>

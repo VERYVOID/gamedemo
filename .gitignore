@@ -1,0 +1,14 @@
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+!/[Uu]ser[Ss]ettings/EditorBuildSettings.asset
+.vs/
+.idea/
+*.csproj
+*.unityproj
+*.sln
