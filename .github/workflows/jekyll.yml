@@ -47,9 +47,9 @@ jobs:
           buildsPath: build
           unityVersion: auto
 
-      # 4. 生成 .nojekyll 防止 GitHub Pages 路由丢失
-      - name: Prevent Jekyll Parsing
-        run: touch build/WebGL/WebGL/.nojekyll
+      # 4. 修复 Docker 容器生成文件的文件所有权权限（关键）
+      - name: Fix output permissions
+        run: sudo chown -R $USER:$USER build/
 
       # 5. 上传构建好的 WebGL 静态网页工件
       - name: Upload Pages Artifact
