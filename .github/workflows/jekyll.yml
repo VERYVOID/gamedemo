@@ -35,14 +35,11 @@ jobs:
           restore-keys: |
             Library-WebGL-
 
-      # 2.5 增加 10GB Swap 虚拟内存，防止 WebGL 编译触发 OOM 退出码 137
-      - name: Allocate Swap Space
-        run: |
-          sudo fallocate -l 10G /swapfile
-          sudo chmod 600 /swapfile
-          sudo mkswap /swapfile
-          sudo swapon /swapfile
-          free -h
+      # 2.5 使用官方成熟 Action 调整 Swap 为 10GB（自动处理已有的 /swapfile）
+      - name: Set Swap Space
+        uses: pierotofy/set-swap-space@v1.0
+        with:
+          swap-size-gb: 10
 
       # 3. 使用 GameCI 官方容器进行 WebGL 构建
       - name: Build WebGL Player
